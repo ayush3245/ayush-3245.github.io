@@ -27,7 +27,7 @@ const projects = [
     icon: <MessageCircle className="w-5 h-5" />,
     problem: "How to develop a chatbot that offers genuine emotional support, helping users understand and navigate their feelings while providing comfort.",
     approach: "I employed system prompt engineering to give the chatbot a warm, therapeutic personality, creating a supportive environment. My psychology knowledge was instrumental in understanding the emotional nuances required.",
-    technologies: ["Llama 3-70B (GroqCloud API)", "Gradio", "Python", "Cursor"],
+    technologies: ["Large Language Models", "Gradio", "Python", "Cursor"],
     status: "In development, not yet publicly deployed",
     achievements: [
       "Good proficiency in understanding user emotions",
@@ -45,7 +45,7 @@ const projects = [
     icon: <FileText className="w-5 h-5" />,
     problem: "Needed a personal tool to analyze resumes against different job descriptions, identify gaps, and understand how to improve them for specific job profiles.",
     approach: "Developed an analyzer to provide key metrics and suggestions for improving resume alignment with specific job postings.",
-    technologies: ["Python", "Streamlit", "Llama3-70b (GroqAPI)", "PDF processing"],
+    technologies: ["Python", "Streamlit", "Large Language Models", "PDF processing"],
     status: "In development, not yet publicly deployed",
     achievements: [
       "Provides match score against job descriptions",
@@ -83,11 +83,11 @@ const projects = [
     icon: <BarChart4 className="w-5 h-5" />,
     problem: "To evaluate which kind of ML model would work best for loan defaulter prediction with large banking datasets.",
     approach: "After training and evaluating various ML models, found that neural networks, random forests, and gradient boosting performed better than conventional classifiers for large datasets.",
-    technologies: ["Python", "Keras (TensorFlow interface)", "TensorFlow", "Matplotlib", "NumPy", "Pandas", "NLTK", "Scikit-learn"],
-    algorithms: ["Neural Network (ANN)", "Random Forest", "Gradient Boosting"],
+    technologies: ["Python", "Machine Learning", "Data Analysis"],
+    algorithms: ["Neural Networks", "Random Forest", "Gradient Boosting"],
     status: "Completed (B.E. Final Year Project)",
     achievements: [
-      "Achieved 89% accuracy using ANN",
+      "Achieved 89% accuracy using Neural Networks",
       "Achieved 88% accuracy using Random Forest",
       "Successfully compared performance of different ML algorithms"
     ],

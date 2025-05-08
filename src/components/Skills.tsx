@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { 
   Code, Database, BrainCircuit, BarChart, 
-  Cloud, Laptop, Pill, GraduationCap
+  Cloud, Laptop, Pill, GraduationCap, MessageCircle
 } from 'lucide-react';
 import { 
   Card, 
@@ -19,21 +19,17 @@ import {
   TabsTrigger 
 } from "@/components/ui/tabs";
 
-// Define skill categories and skills
+// Define skill categories and skills with proficiency levels
 const skillCategories = [
   {
     id: "ai-ml",
     name: "AI & Machine Learning",
     icon: <BrainCircuit className="w-5 h-5" />,
     skills: [
-      { name: "Llama 3 (70B via GroqCloud API)", proficiency: 90 },
-      { name: "Prompt Engineering", proficiency: 95 },
-      { name: "AI Chatbot Development", proficiency: 90 },
-      { name: "Neural Networks (ANN)", proficiency: 85 },
-      { name: "Random Forest", proficiency: 80 },
-      { name: "Gradient Boosting", proficiency: 80 },
-      { name: "Keras (TensorFlow interface)", proficiency: 75 },
-      { name: "TensorFlow", proficiency: 75 },
+      { name: "Large Language Models", proficiency: "Proficient" },
+      { name: "Prompt Engineering", proficiency: "Expert" },
+      { name: "AI Chatbot Development", proficiency: "Proficient" },
+      { name: "Machine Learning", proficiency: "Competent" },
     ]
   },
   {
@@ -41,16 +37,16 @@ const skillCategories = [
     name: "Software Development & Tools",
     icon: <Code className="w-5 h-5" />,
     skills: [
-      { name: "Python", proficiency: 90 },
-      { name: "SQL", proficiency: 85 },
-      { name: "Gradio", proficiency: 90 },
-      { name: "FastAPI", proficiency: 85 },
-      { name: "Django", proficiency: 80 },
-      { name: "JavaScript", proficiency: 75 },
-      { name: "Streamlit", proficiency: 90 },
-      { name: "Cursor (development environment)", proficiency: 95 },
-      { name: "AWS (S3, EC2)", proficiency: 70 },
-      { name: "Lovable (AI website builder)", proficiency: 80 },
+      { name: "Python", proficiency: "Proficient" },
+      { name: "SQL", proficiency: "Competent" },
+      { name: "Gradio", proficiency: "Proficient" },
+      { name: "FastAPI", proficiency: "Competent" },
+      { name: "Django", proficiency: "Advanced Beginner" },
+      { name: "JavaScript", proficiency: "Advanced Beginner" },
+      { name: "Streamlit", proficiency: "Proficient" },
+      { name: "Cursor (development environment)", proficiency: "Expert" },
+      { name: "AWS (S3, EC2)", proficiency: "Advanced Beginner" },
+      { name: "Lovable (AI website builder)", proficiency: "Competent" },
     ]
   },
   {
@@ -58,14 +54,10 @@ const skillCategories = [
     name: "Data Analysis & Automation",
     icon: <BarChart className="w-5 h-5" />,
     skills: [
-      { name: "Advanced Excel (complex automation)", proficiency: 95 },
-      { name: "IBM SPSS Statistics", proficiency: 85 },
-      { name: "Data Visualization (Matplotlib)", proficiency: 85 },
-      { name: "NumPy", proficiency: 90 },
-      { name: "Pandas", proficiency: 90 },
-      { name: "NLTK", proficiency: 85 },
-      { name: "Scikit-learn", proficiency: 85 },
-      { name: "Kaggle (for ML datasets)", proficiency: 80 },
+      { name: "Advanced Excel", proficiency: "Expert" },
+      { name: "IBM SPSS Statistics", proficiency: "Competent" },
+      { name: "Data Visualization", proficiency: "Competent" },
+      { name: "Data Analysis", proficiency: "Proficient" },
     ]
   },
   {
@@ -73,28 +65,47 @@ const skillCategories = [
     name: "Clinical Psychology",
     icon: <GraduationCap className="w-5 h-5" />,
     skills: [
-      { name: "Therapeutic Principles", proficiency: 90 },
-      { name: "Psychological Assessment", proficiency: 85 },
-      { name: "Comprehensive Psychological Batteries", proficiency: 85 },
-      { name: "IEP Creation", proficiency: 80 },
-      { name: "Ethical AI in Health", proficiency: 95 },
-      { name: "English (Professional)", proficiency: 95 },
-      { name: "Hindi (Native)", proficiency: 100 },
+      { name: "Therapeutic Principles", proficiency: "Proficient" },
+      { name: "Psychological Assessment", proficiency: "Competent" },
+      { name: "Comprehensive Psychological Batteries", proficiency: "Competent" },
+      { name: "IEP Creation", proficiency: "Advanced Beginner" },
+      { name: "Ethical AI in Health", proficiency: "Expert" },
+    ]
+  },
+  {
+    id: "languages",
+    name: "Languages",
+    icon: <MessageCircle className="w-5 h-5" />,
+    skills: [
+      { name: "English (Professional)", proficiency: "Expert" },
+      { name: "Hindi (Native)", proficiency: "Expert" },
     ]
   }
 ];
 
-const SkillBar = ({ name, proficiency }: { name: string; proficiency: number }) => {
+const SkillBar = ({ name, proficiency }: { name: string; proficiency: string }) => {
+  // Map proficiency to width percentage
+  const getProficiencyWidth = () => {
+    switch (proficiency) {
+      case "Novice": return 20;
+      case "Advanced Beginner": return 40;
+      case "Competent": return 60;
+      case "Proficient": return 80;
+      case "Expert": return 100;
+      default: return 50;
+    }
+  };
+
   return (
     <div className="mb-3">
       <div className="flex justify-between items-center mb-1">
         <span className="text-sm">{name}</span>
-        <span className="text-xs font-medium text-muted-foreground">{proficiency}%</span>
+        <span className="text-xs font-medium text-muted-foreground">{proficiency}</span>
       </div>
       <div className="skill-bar">
         <div 
           className="skill-progress"
-          style={{ width: `${proficiency}%` }}
+          style={{ width: `${getProficiencyWidth()}%` }}
         ></div>
       </div>
     </div>
@@ -183,7 +194,7 @@ const Skills = () => {
         {/* Detailed Skill Tabs */}
         <Tabs defaultValue="ai-ml" className="w-full">
           <div className="flex justify-center mb-8">
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2">
               {skillCategories.map(category => (
                 <TabsTrigger 
                   key={category.id}
@@ -217,7 +228,7 @@ const Skills = () => {
                       <SkillBar 
                         key={skill.name} 
                         name={skill.name} 
-                        proficiency={skill.proficiency} 
+                        proficiency={skill.proficiency}
                       />
                     ))}
                   </div>
@@ -229,9 +240,9 @@ const Skills = () => {
                   
                   {category.id === "ai-ml" && (
                     <div className="space-y-4">
-                      <p>My AI expertise focuses on creating human-centered solutions that leverage large language models like Llama 3 with sophisticated prompt engineering to create valuable applications.</p>
+                      <p>My AI expertise focuses on creating human-centered solutions that leverage large language models with sophisticated prompt engineering to create valuable applications.</p>
                       
-                      <p>I've applied these skills in developing therapeutic chatbots and analyzing complex data patterns using neural networks and ensemble methods like Random Forest.</p>
+                      <p>I've applied these skills in developing therapeutic chatbots and analyzing complex data patterns using neural networks and ensemble methods.</p>
                       
                       <p>My approach combines technical ML knowledge with an understanding of human needs, creating AI systems that are both powerful and ethically responsible.</p>
                     </div>
@@ -249,9 +260,9 @@ const Skills = () => {
                   
                   {category.id === "data-analysis" && (
                     <div className="space-y-4">
-                      <p>My data analysis capabilities range from creating complex Excel automation systems to employing sophisticated Python libraries like Pandas and NumPy for in-depth analysis.</p>
+                      <p>My data analysis capabilities range from creating Excel automation systems to employing sophisticated Python libraries for in-depth analysis.</p>
                       
-                      <p>I excel at transforming raw data into meaningful insights through statistical analysis and clear data visualization using tools like Matplotlib.</p>
+                      <p>I excel at transforming raw data into meaningful insights through statistical analysis and clear data visualization.</p>
                       
                       <p>These skills have been applied to automate psychological test scoring and develop predictive models for loan defaulter prediction with high accuracy.</p>
                     </div>
@@ -264,6 +275,16 @@ const Skills = () => {
                       <p>I've applied this knowledge in developing therapeutic support systems and designing psychological assessment tools that are both technically sound and clinically valid.</p>
                       
                       <p>This dual expertise allows me to create truly human-centered AI solutions that address genuine needs while respecting psychological well-being and ethical boundaries.</p>
+                    </div>
+                  )}
+                  
+                  {category.id === "languages" && (
+                    <div className="space-y-4">
+                      <p>My professional fluency in English enables me to communicate complex technical and psychological concepts clearly in documentation, presentations, and client interactions.</p>
+                      
+                      <p>As a native Hindi speaker, I can effectively bridge cultural and linguistic gaps in diverse work environments and research contexts.</p>
+                      
+                      <p>These language skills enhance my ability to collaborate in international teams and make my work accessible to broader audiences.</p>
                     </div>
                   )}
                 </div>
