@@ -248,22 +248,24 @@ const Projects = () => {
         <Tabs defaultValue="chatbot" value={activeProject} onValueChange={setActiveProject}>
           {/* Project selection cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {projects.map(project => (
-              <TabsTrigger 
-                key={project.id} 
-                value={project.id}
-                className="p-0 bg-transparent data-[state=active]:bg-transparent border-none data-[state=active]:border-none shadow-none data-[state=active]:shadow-none h-auto"
-              >
-                <div className="w-full h-full">
-                  <ProjectCard
-                    title={project.title}
-                    description={project.description}
-                    icon={project.icon}
-                    color={activeProject === project.id ? project.color : "bg-background"}
-                  />
-                </div>
-              </TabsTrigger>
-            ))}
+            <TabsList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 h-auto bg-transparent p-0 gap-4">
+              {projects.map(project => (
+                <TabsTrigger 
+                  key={project.id} 
+                  value={project.id}
+                  className="p-0 bg-transparent data-[state=active]:bg-transparent border-none data-[state=active]:border-none shadow-none data-[state=active]:shadow-none h-auto w-full"
+                >
+                  <div className="w-full h-full">
+                    <ProjectCard
+                      title={project.title}
+                      description={project.description}
+                      icon={project.icon}
+                      color={activeProject === project.id ? project.color : "bg-background"}
+                    />
+                  </div>
+                </TabsTrigger>
+              ))}
+            </TabsList>
           </div>
           
           {/* Project details */}
