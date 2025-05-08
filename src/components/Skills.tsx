@@ -27,7 +27,7 @@ const skillCategories = [
     icon: <BrainCircuit className="w-5 h-5" />,
     skills: [
       { name: "Large Language Models", proficiency: "Proficient" },
-      { name: "Prompt Engineering", proficiency: "Expert" },
+      { name: "Prompt Engineering", proficiency: "Proficient" },
       { name: "AI Chatbot Development", proficiency: "Proficient" },
       { name: "Machine Learning", proficiency: "Competent" },
     ]
@@ -44,7 +44,7 @@ const skillCategories = [
       { name: "Django", proficiency: "Advanced Beginner" },
       { name: "JavaScript", proficiency: "Advanced Beginner" },
       { name: "Streamlit", proficiency: "Proficient" },
-      { name: "Cursor (development environment)", proficiency: "Expert" },
+      { name: "Cursor (development environment)", proficiency: "Proficient" },
       { name: "AWS (S3, EC2)", proficiency: "Advanced Beginner" },
       { name: "Lovable (AI website builder)", proficiency: "Competent" },
     ]
@@ -54,10 +54,10 @@ const skillCategories = [
     name: "Data Analysis & Automation",
     icon: <BarChart className="w-5 h-5" />,
     skills: [
-      { name: "Advanced Excel", proficiency: "Expert" },
+      { name: "Advanced Excel", proficiency: "Competent" },
       { name: "IBM SPSS Statistics", proficiency: "Competent" },
-      { name: "Data Visualization", proficiency: "Competent" },
-      { name: "Data Analysis", proficiency: "Proficient" },
+      { name: "Data Visualization", proficiency: "Proficient" },
+      { name: "Data Analysis", proficiency: "Competent" },
     ]
   },
   {
@@ -69,7 +69,7 @@ const skillCategories = [
       { name: "Psychological Assessment", proficiency: "Competent" },
       { name: "Comprehensive Psychological Batteries", proficiency: "Competent" },
       { name: "IEP Creation", proficiency: "Advanced Beginner" },
-      { name: "Ethical AI in Health", proficiency: "Expert" },
+      { name: "Ethical AI in Health", proficiency: "Competent" },
     ]
   },
   {
@@ -77,8 +77,8 @@ const skillCategories = [
     name: "Languages",
     icon: <MessageCircle className="w-5 h-5" />,
     skills: [
-      { name: "English (Professional)", proficiency: "Expert" },
-      { name: "Hindi (Native)", proficiency: "Expert" },
+      { name: "English", proficiency: "Proficient" },
+      { name: "Hindi", proficiency: "Proficient" },
     ]
   }
 ];
@@ -193,21 +193,20 @@ const Skills = () => {
         
         {/* Detailed Skill Tabs */}
         <Tabs defaultValue="ai-ml" className="w-full">
-          <div className="flex justify-center mb-8">
-            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2">
+          <div className="flex justify-center mb-8 overflow-x-auto">
+            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 p-1">
               {skillCategories.map(category => (
                 <TabsTrigger 
                   key={category.id}
                   value={category.id}
                   onClick={() => setActiveCategory(category.id)}
                   className={cn(
-                    "flex items-center gap-2",
+                    "flex items-center gap-2 px-3 py-2 whitespace-nowrap",
                     activeCategory === category.id ? "text-psych" : ""
                   )}
                 >
                   {category.icon}
-                  <span className="hidden md:inline">{category.name}</span>
-                  <span className="md:hidden">{category.name.split(' ')[0]}</span>
+                  <span>{category.name}</span>
                 </TabsTrigger>
               ))}
             </TabsList>

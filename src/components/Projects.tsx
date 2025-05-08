@@ -132,7 +132,7 @@ const ProjectCard = ({
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-md bg-tech/10 text-tech">{icon}</div>
-          <CardTitle className="text-lg">{title}</CardTitle>
+          <CardTitle className="text-lg truncate">{title}</CardTitle>
         </div>
         <CardDescription className="text-sm line-clamp-2">{description}</CardDescription>
       </CardHeader>
@@ -248,7 +248,7 @@ const Projects = () => {
         <Tabs defaultValue="chatbot" value={activeProject} onValueChange={setActiveProject}>
           {/* Project selection cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <TabsList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 h-auto bg-transparent p-0 gap-4">
+            <TabsList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 h-auto bg-transparent p-0 gap-4 w-full">
               {projects.map(project => (
                 <TabsTrigger 
                   key={project.id} 
