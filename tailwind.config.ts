@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,26 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom portfolio colors
+				tech: {
+					DEFAULT: '#1A365D', // Deep blue
+					light: '#2A4365',
+					dark: '#0F2942',
+				},
+				psych: {
+					DEFAULT: '#6B46C1', // Purple
+					light: '#9F7AEA',
+					dark: '#553C9A',
+				},
+				neutral: {
+					DEFAULT: '#F7FAFC', // Light background
+					dark: '#E2E8F0',
 				}
+			},
+			fontFamily: {
+				sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+				heading: ['Poppins', 'ui-sans-serif', 'system-ui'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +104,33 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'slide-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out',
+				'slide-in': 'slide-in 0.7s ease-out',
 			}
 		}
 	},
