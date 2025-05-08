@@ -117,24 +117,33 @@ const AchievementItem = ({ text }: { text: string }) => (
 
 // Project Card component
 const ProjectCard = ({ 
-  title, description, icon, color 
+  title, description, icon, color, isActive
 }: { 
   title: string; 
   description: string; 
   icon: React.ReactNode;
   color: string;
+  isActive: boolean;
 }) => {
   return (
     <Card className={cn(
-      "border border-border/50 transition-all duration-300 hover:shadow-md cursor-pointer h-full",
-      color
+      "border transition-all duration-300 h-full",
+      isActive 
+        ? `${color} shadow-md border-tech/20` 
+        : "bg-background hover:bg-white hover:shadow-sm border-border/30"
     )}>
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-md bg-tech/10 text-tech">{icon}</div>
+          <div className={cn(
+            "p-2 rounded-md text-tech",
+            isActive ? "bg-white/50" : "bg-tech/10"
+          )}>{icon}</div>
           <CardTitle className="text-lg truncate">{title}</CardTitle>
         </div>
-        <CardDescription className="text-sm line-clamp-2">{description}</CardDescription>
+        <CardDescription className={cn(
+          "text-sm line-clamp-2",
+          isActive ? "text-foreground/80" : "text-muted-foreground"
+        )}>{description}</CardDescription>
       </CardHeader>
     </Card>
   );
@@ -247,25 +256,24 @@ const Projects = () => {
         
         <Tabs defaultValue="chatbot" value={activeProject} onValueChange={setActiveProject}>
           {/* Project selection cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <TabsList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 h-auto bg-transparent p-0 gap-4 w-full">
-              {projects.map(project => (
-                <TabsTrigger 
-                  key={project.id} 
-                  value={project.id}
-                  className="p-0 bg-transparent data-[state=active]:bg-transparent border-none data-[state=active]:border-none shadow-none data-[state=active]:shadow-none h-auto w-full"
-                >
-                  <div className="w-full h-full">
-                    <ProjectCard
-                      title={project.title}
-                      description={project.description}
-                      icon={project.icon}
-                      color={activeProject === project.id ? project.color : "bg-background"}
-                    />
-                  </div>
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            {projects.map(project => (
+              <TabsTrigger 
+                key={project.id} 
+                value={project.id}
+                className="p-0 bg-transparent data-[state=active]:bg-transparent border-none data-[state=active]:border-none shadow-none data-[state=active]:shadow-none h-auto w-full"
+              >
+                <div className="w-full h-full">
+                  <ProjectCard
+                    title={project.title}
+                    description={project.description}
+                    icon={project.icon}
+                    color={project.color}
+                    isActive={activeProject === project.id}
+                  />
+                </div>
+              </TabsTrigger>
+            ))}
           </div>
           
           {/* Project details */}

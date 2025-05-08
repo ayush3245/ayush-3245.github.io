@@ -72,7 +72,7 @@ const Navbar = () => {
           {/* Logo */}
           <a href="#home" className="flex items-center">
             <span className="font-heading font-bold text-xl text-tech">
-              Ayush<span className="text-psych">Kejriwal</span>
+              Ayush <span className="text-psych">Kejriwal</span>
             </span>
           </a>
           

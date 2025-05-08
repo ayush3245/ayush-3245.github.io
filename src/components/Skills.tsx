@@ -193,20 +193,25 @@ const Skills = () => {
         
         {/* Detailed Skill Tabs */}
         <Tabs defaultValue="ai-ml" className="w-full">
-          <div className="flex justify-center mb-8 overflow-x-auto">
-            <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2 p-1">
+          <div className="flex justify-center mb-8">
+            <TabsList className="bg-white/70 backdrop-blur-sm border border-border/30 shadow-sm p-1.5 rounded-full">
               {skillCategories.map(category => (
                 <TabsTrigger 
                   key={category.id}
                   value={category.id}
                   onClick={() => setActiveCategory(category.id)}
                   className={cn(
-                    "flex items-center gap-2 px-3 py-2 whitespace-nowrap",
-                    activeCategory === category.id ? "text-psych" : ""
+                    "rounded-full transition-all py-2 px-4",
+                    activeCategory === category.id 
+                      ? "bg-gradient-to-r from-tech to-psych text-white shadow-md" 
+                      : "hover:bg-white/80"
                   )}
                 >
-                  {category.icon}
-                  <span>{category.name}</span>
+                  <div className="flex items-center gap-2">
+                    {category.icon}
+                    <span className="hidden sm:inline">{category.name}</span>
+                    <span className="sm:hidden">{category.id === "software-dev" ? "Software" : category.name.split(' ')[0]}</span>
+                  </div>
                 </TabsTrigger>
               ))}
             </TabsList>
