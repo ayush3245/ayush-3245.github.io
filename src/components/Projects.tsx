@@ -256,7 +256,7 @@ const Projects = () => {
         
         <Tabs defaultValue="chatbot" value={activeProject} onValueChange={setActiveProject}>
           {/* Project selection cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+          <TabsList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
             {projects.map(project => (
               <TabsTrigger 
                 key={project.id} 
@@ -274,7 +274,7 @@ const Projects = () => {
                 </div>
               </TabsTrigger>
             ))}
-          </div>
+          </TabsList>
           
           {/* Project details */}
           {projects.map(project => (
