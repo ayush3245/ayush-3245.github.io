@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { 
   Code, Database, BrainCircuit, BarChart, 
@@ -134,12 +134,23 @@ const SkillCard = ({ icon, title, description, children }: {
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState("ai-ml");
+  const scrollPosition = useRef(0);
   
-  // Add a ref for the tab container to prevent scroll jumping
+  // Save the current scroll position before tab change
   const handleTabChange = (value: string) => {
-    // Prevent default scroll behavior by capturing the event
+    // Store current scroll position
+    scrollPosition.current = window.scrollY;
     setActiveCategory(value);
   };
+  
+  // Restore scroll position after tab content renders
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo(0, scrollPosition.current);
+    }, 0);
+    
+    return () => clearTimeout(timer);
+  }, [activeCategory]);
 
   return (
     <section id="skills" className="py-20 relative overflow-hidden">
@@ -217,7 +228,7 @@ const Skills = () => {
                       : "hover:bg-white/80"
                   )}
                   onClick={(e) => {
-                    // Prevent focus scrolling
+                    // Prevent default behavior to avoid browser focus scrolling
                     e.preventDefault();
                   }}
                 >
