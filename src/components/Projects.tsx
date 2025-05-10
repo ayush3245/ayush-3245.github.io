@@ -17,6 +17,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Project data
 const projects = [
@@ -154,12 +155,12 @@ const ProjectDetail = ({ project }: { project: typeof projects[0] }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-border/50 overflow-hidden">
       {/* Project header */}
-      <div className={cn("px-6 py-8", project.color)}>
-        <h3 className="font-semibold text-2xl mb-2 flex items-center gap-3">
+      <div className={cn("px-4 sm:px-6 py-6 sm:py-8", project.color)}>
+        <h3 className="font-semibold text-xl sm:text-2xl mb-2 flex flex-wrap items-center gap-3">
           <div className="p-2 rounded-md bg-white/50 text-tech">{project.icon}</div>
           {project.title}
         </h3>
-        <p className="text-foreground/80 mb-6">{project.description}</p>
+        <p className="text-foreground/80 mb-4 sm:mb-6 text-sm sm:text-base">{project.description}</p>
         
         <div className="flex flex-wrap gap-2">
           {project.technologies.map(tech => (
@@ -174,9 +175,9 @@ const ProjectDetail = ({ project }: { project: typeof projects[0] }) => {
       </div>
       
       {/* Project content */}
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* STAR/CAR framework sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 gap-4 mb-6">
           <div>
             <h4 className="font-medium text-tech mb-2">Problem Statement</h4>
             <p className="text-sm text-foreground/80 mb-4">{project.problem}</p>
@@ -199,7 +200,7 @@ const ProjectDetail = ({ project }: { project: typeof projects[0] }) => {
         </div>
         
         {/* Project image placeholder */}
-        <div className="bg-neutral rounded-md mb-6 overflow-hidden">
+        <div className="bg-neutral rounded-md mb-4 sm:mb-6 overflow-hidden">
           <div className="aspect-video flex items-center justify-center">
             <div className="text-center p-4">
               <Code className="w-8 h-8 text-tech/50 mx-auto mb-2" />
@@ -211,7 +212,7 @@ const ProjectDetail = ({ project }: { project: typeof projects[0] }) => {
         </div>
         
         {/* Achievements and learnings */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6">
           <div>
             <h4 className="font-medium text-tech mb-3">Key Achievements</h4>
             <ul className="pl-1">
@@ -238,8 +239,47 @@ const ProjectDetail = ({ project }: { project: typeof projects[0] }) => {
   );
 };
 
+const MobileProjectSelector = ({ 
+  projects, activeProject, setActiveProject 
+}: { 
+  projects: typeof projects;
+  activeProject: string;
+  setActiveProject: (id: string) => void;
+}) => {
+  return (
+    <div className="mb-6">
+      <select 
+        className="w-full py-2 px-3 bg-white border border-border rounded-md shadow-sm text-sm"
+        value={activeProject}
+        onChange={(e) => setActiveProject(e.target.value)}
+      >
+        {projects.map(project => (
+          <option key={project.id} value={project.id}>
+            {project.title}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
 const Projects = () => {
   const [activeProject, setActiveProject] = useState("chatbot");
+  const isMobile = useIsMobile();
+  
+  // Prevent scroll jumping when changing tabs
+  const handleTabChange = (value: string) => {
+    const currentScrollPosition = window.scrollY;
+    setActiveProject(value);
+    
+    // Restore scroll position after state update
+    setTimeout(() => {
+      window.scrollTo({
+        top: currentScrollPosition,
+        behavior: 'auto'
+      });
+    }, 0);
+  };
   
   return (
     <section id="projects" className="py-20 bg-neutral relative overflow-hidden">
@@ -247,38 +287,62 @@ const Projects = () => {
       <div className="absolute -top-40 -left-40 w-80 h-80 bg-psych/5 rounded-full blur-3xl"></div>
       
       <div className="section">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="section-heading">Featured Projects</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Showcasing my work at the intersection of AI, software engineering, and psychology
           </p>
         </div>
         
-        <Tabs defaultValue="chatbot" value={activeProject} onValueChange={setActiveProject}>
-          {/* Project selection cards */}
-          <TabsList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-            {projects.map(project => (
-              <TabsTrigger 
-                key={project.id} 
-                value={project.id}
-                className="p-0 bg-transparent data-[state=active]:bg-transparent border-none data-[state=active]:border-none shadow-none data-[state=active]:shadow-none h-auto w-full"
-              >
-                <div className="w-full h-full">
-                  <ProjectCard
-                    title={project.title}
-                    description={project.description}
-                    icon={project.icon}
-                    color={project.color}
-                    isActive={activeProject === project.id}
-                  />
-                </div>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        <Tabs 
+          defaultValue="chatbot" 
+          value={activeProject} 
+          onValueChange={handleTabChange}
+          className="w-full"
+        >
+          {/* Show dropdown selector on mobile */}
+          {isMobile && (
+            <MobileProjectSelector 
+              projects={projects}
+              activeProject={activeProject}
+              setActiveProject={handleTabChange}
+            />
+          )}
+          
+          {/* Project selection cards - shown on non-mobile only */}
+          {!isMobile && (
+            <TabsList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+              {projects.map(project => (
+                <TabsTrigger 
+                  key={project.id} 
+                  value={project.id}
+                  className="p-0 bg-transparent data-[state=active]:bg-transparent border-none data-[state=active]:border-none shadow-none data-[state=active]:shadow-none h-auto w-full"
+                  onClick={(e) => {
+                    // Prevent default behavior to avoid focus-based scrolling
+                    e.preventDefault();
+                  }}
+                >
+                  <div className="w-full h-full">
+                    <ProjectCard
+                      title={project.title}
+                      description={project.description}
+                      icon={project.icon}
+                      color={project.color}
+                      isActive={activeProject === project.id}
+                    />
+                  </div>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          )}
           
           {/* Project details */}
           {projects.map(project => (
-            <TabsContent key={project.id} value={project.id}>
+            <TabsContent 
+              key={project.id} 
+              value={project.id}
+              className="mt-0 sm:mt-2 focus-visible:outline-none focus-visible:ring-0"
+            >
               <ProjectDetail project={project} />
             </TabsContent>
           ))}
