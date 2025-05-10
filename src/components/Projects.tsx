@@ -19,8 +19,27 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+// Define ProjectType interface first to avoid circular references
+interface ProjectType {
+  id: string;
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  problem: string;
+  approach: string;
+  technologies: string[];
+  status: string;
+  achievements: string[];
+  learnings: string;
+  imageUrl: string;
+  color: string;
+  algorithms?: string[];
+  future?: string;
+  role?: string;
+}
+
 // Project data
-const projects = [
+const projects: ProjectType[] = [
   {
     id: "chatbot",
     title: "Therapeutic Support Chatbot",
@@ -151,7 +170,7 @@ const ProjectCard = ({
 };
 
 // Project Detail component
-const ProjectDetail = ({ project }: { project: typeof projects[0] }) => {
+const ProjectDetail = ({ project }: { project: ProjectType }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-border/50 overflow-hidden">
       {/* Project header */}
@@ -242,7 +261,7 @@ const ProjectDetail = ({ project }: { project: typeof projects[0] }) => {
 const MobileProjectSelector = ({ 
   projects, activeProject, setActiveProject 
 }: { 
-  projects: typeof projects;
+  projects: ProjectType[];
   activeProject: string;
   setActiveProject: (id: string) => void;
 }) => {
