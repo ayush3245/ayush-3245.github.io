@@ -158,10 +158,10 @@ const ProjectCard = ({
             "p-2 rounded-md text-tech",
             isActive ? "bg-white/50" : "bg-tech/10"
           )}>{icon}</div>
-          <CardTitle className="text-lg truncate max-w-[200px]">{title}</CardTitle>
+          <CardTitle className="text-lg truncate max-w-[150px]">{title}</CardTitle>
         </div>
         <CardDescription className={cn(
-          "text-sm line-clamp-2 h-10", // Fixed height for description
+          "text-sm line-clamp-2 h-10 overflow-hidden", 
           isActive ? "text-foreground/80" : "text-muted-foreground"
         )}>{description}</CardDescription>
       </CardHeader>
@@ -177,7 +177,7 @@ const ProjectDetail = ({ project }: { project: ProjectType }) => {
       <div className={cn("px-4 sm:px-6 py-6 sm:py-8", project.color)}>
         <h3 className="font-semibold text-xl sm:text-2xl mb-2 flex flex-wrap items-center gap-3">
           <div className="p-2 rounded-md bg-white/50 text-tech">{project.icon}</div>
-          <span className="truncate max-w-full">{project.title}</span>
+          <span className="truncate max-w-[calc(100%-3rem)]">{project.title}</span>
         </h3>
         <p className="text-foreground/80 mb-4 sm:mb-6 text-sm sm:text-base">{project.description}</p>
         

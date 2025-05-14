@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex flex-col justify-center relative overflow-hidden pt-16">
+    <section id="home" className="min-h-screen flex flex-col justify-center relative overflow-hidden pt-16 pb-24">
       {/* Background elements */}
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-tech/5 rounded-full blur-3xl"></div>
       <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-psych/5 rounded-full blur-3xl"></div>
@@ -22,7 +22,7 @@ const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              Bridging <span className="bg-gradient-to-r from-tech to-psych bg-clip-text text-transparent">AI</span> and <span className="text-psych">Psychology</span> for Human-Centered Solutions
+              Bridging <span className="bg-gradient-to-r from-psych to-tech bg-clip-text text-transparent">AI</span> and <span className="text-psych">Psychology</span> for Human-Centered Solutions
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl">
@@ -81,9 +81,9 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Scroll down indicator - fixed position */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <span className="text-muted-foreground text-sm mb-2 whitespace-nowrap">Scroll Down</span>
+      {/* Scroll down indicator with fixed positioning and z-index to prevent overlapping */}
+      <div className="fixed left-1/2 bottom-6 transform -translate-x-1/2 flex flex-col items-center animate-bounce z-10 bg-background/70 px-4 py-2 rounded-full shadow-sm backdrop-blur-sm">
+        <span className="text-muted-foreground text-sm mb-1 whitespace-nowrap">Scroll Down</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
