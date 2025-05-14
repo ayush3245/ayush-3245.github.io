@@ -81,8 +81,8 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Scroll down indicator with fixed positioning and z-index to prevent overlapping */}
-      <div className="fixed left-1/2 bottom-6 transform -translate-x-1/2 flex flex-col items-center animate-bounce z-10 bg-background/70 px-4 py-2 rounded-full shadow-sm backdrop-blur-sm">
+      {/* Scroll down indicator - absolute position with improved styling */}
+      <div className="absolute left-1/2 bottom-12 transform -translate-x-1/2 flex flex-col items-center animate-bounce z-10 bg-background/70 px-4 py-2 rounded-full shadow-sm backdrop-blur-sm">
         <span className="text-muted-foreground text-sm mb-1 whitespace-nowrap">Scroll Down</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />

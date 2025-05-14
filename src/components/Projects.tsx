@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Code, MessageCircle, FileText, BarChart4 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -158,10 +157,10 @@ const ProjectCard = ({
             "p-2 rounded-md text-tech",
             isActive ? "bg-white/50" : "bg-tech/10"
           )}>{icon}</div>
-          <CardTitle className="text-lg truncate max-w-[150px]">{title}</CardTitle>
+          <CardTitle className="text-lg truncate max-w-[120px] sm:max-w-[180px] leading-tight">{title}</CardTitle>
         </div>
         <CardDescription className={cn(
-          "text-sm line-clamp-2 h-10 overflow-hidden", 
+          "text-sm line-clamp-2 h-10 overflow-hidden mt-2", 
           isActive ? "text-foreground/80" : "text-muted-foreground"
         )}>{description}</CardDescription>
       </CardHeader>
@@ -175,9 +174,9 @@ const ProjectDetail = ({ project }: { project: ProjectType }) => {
     <div className="bg-white rounded-lg shadow-sm border border-border/50 overflow-hidden">
       {/* Project header - Fixed height and overflow handling */}
       <div className={cn("px-4 sm:px-6 py-6 sm:py-8", project.color)}>
-        <h3 className="font-semibold text-xl sm:text-2xl mb-2 flex flex-wrap items-center gap-3">
-          <div className="p-2 rounded-md bg-white/50 text-tech">{project.icon}</div>
-          <span className="truncate max-w-[calc(100%-3rem)]">{project.title}</span>
+        <h3 className="font-semibold text-xl sm:text-2xl mb-2 flex items-center gap-3">
+          <div className="p-2 rounded-md bg-white/50 text-tech flex-shrink-0">{project.icon}</div>
+          <span className="truncate">{project.title}</span>
         </h3>
         <p className="text-foreground/80 mb-4 sm:mb-6 text-sm sm:text-base">{project.description}</p>
         
