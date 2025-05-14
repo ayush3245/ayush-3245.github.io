@@ -135,7 +135,7 @@ const AchievementItem = ({ text }: { text: string }) => (
   </li>
 );
 
-// Project Card component
+// Project Card component - Fixing issue with title and description overflow
 const ProjectCard = ({ 
   title, description, icon, color, isActive
 }: { 
@@ -158,10 +158,10 @@ const ProjectCard = ({
             "p-2 rounded-md text-tech",
             isActive ? "bg-white/50" : "bg-tech/10"
           )}>{icon}</div>
-          <CardTitle className="text-lg truncate">{title}</CardTitle>
+          <CardTitle className="text-lg truncate max-w-[200px]">{title}</CardTitle>
         </div>
         <CardDescription className={cn(
-          "text-sm line-clamp-2",
+          "text-sm line-clamp-2 h-10", // Fixed height for description
           isActive ? "text-foreground/80" : "text-muted-foreground"
         )}>{description}</CardDescription>
       </CardHeader>
@@ -173,15 +173,15 @@ const ProjectCard = ({
 const ProjectDetail = ({ project }: { project: ProjectType }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-border/50 overflow-hidden">
-      {/* Project header */}
+      {/* Project header - Fixed height and overflow handling */}
       <div className={cn("px-4 sm:px-6 py-6 sm:py-8", project.color)}>
         <h3 className="font-semibold text-xl sm:text-2xl mb-2 flex flex-wrap items-center gap-3">
           <div className="p-2 rounded-md bg-white/50 text-tech">{project.icon}</div>
-          {project.title}
+          <span className="truncate max-w-full">{project.title}</span>
         </h3>
         <p className="text-foreground/80 mb-4 sm:mb-6 text-sm sm:text-base">{project.description}</p>
         
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 overflow-x-auto pb-2 scrollbar-thin">
           {project.technologies.map(tech => (
             <TechBadge key={tech} tech={tech} />
           ))}
