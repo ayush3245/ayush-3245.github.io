@@ -22,7 +22,7 @@ const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              Bridging <span className="text-tech">AI</span> and <span className="text-psych">Psychology</span> for Human-Centered Solutions
+              Bridging <span className="bg-gradient-to-r from-tech to-psych bg-clip-text text-transparent">AI</span> and <span className="text-psych">Psychology</span> for Human-Centered Solutions
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl">
@@ -81,9 +81,9 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Scroll down indicator */}
+      {/* Scroll down indicator - fixed position */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-        <span className="text-muted-foreground text-sm mb-2">Scroll Down</span>
+        <span className="text-muted-foreground text-sm mb-2 whitespace-nowrap">Scroll Down</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-tech" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>

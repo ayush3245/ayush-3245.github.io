@@ -90,6 +90,7 @@
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
+    height: 6px;
   }
   
   ::-webkit-scrollbar-track {
@@ -169,5 +170,16 @@
     .section-subheading {
       @apply text-xl;
     }
+  }
+  
+  /* Horizontal scrollable tabs */
+  .tabs-scrollable-container {
+    @apply overflow-x-auto pb-2;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .tabs-scrollable-container::-webkit-scrollbar {
+    height: 4px;
   }
 }

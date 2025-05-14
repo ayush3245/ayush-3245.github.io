@@ -19,7 +19,7 @@ const Footer = () => {
           {/* Logo and Copyright */}
           <div className="mb-6 md:mb-0">
             <div className="font-heading font-bold text-xl text-tech mb-2">
-              Ayush<span className="text-psych">Kejriwal</span>
+              Ayush <span className="text-psych">Kejriwal</span>
             </div>
             <p className="text-sm text-muted-foreground">
               &copy; {new Date().getFullYear()} Ayush Kejriwal. All rights reserved.

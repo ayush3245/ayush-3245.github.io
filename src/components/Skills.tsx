@@ -135,6 +135,7 @@ const SkillCard = ({ icon, title, description, children }: {
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState("ai-ml");
   const scrollPosition = useRef(0);
+  const tabsListRef = useRef<HTMLDivElement>(null);
   
   // Save the current scroll position before tab change
   const handleTabChange = (value: string) => {
@@ -216,30 +217,35 @@ const Skills = () => {
           className="w-full"
         >
           <div className="flex justify-center mb-8">
-            <TabsList className="bg-white/70 backdrop-blur-sm border border-border/30 shadow-sm p-1.5 rounded-full">
-              {skillCategories.map(category => (
-                <TabsTrigger 
-                  key={category.id}
-                  value={category.id}
-                  className={cn(
-                    "rounded-full transition-all py-2 px-4",
-                    activeCategory === category.id 
-                      ? "bg-gradient-to-r from-tech to-psych text-white shadow-md" 
-                      : "hover:bg-white/80"
-                  )}
-                  onClick={(e) => {
-                    // Prevent default behavior to avoid browser focus scrolling
-                    e.preventDefault();
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    {category.icon}
-                    <span className="hidden sm:inline">{category.name}</span>
-                    <span className="sm:hidden">{category.id === "software-dev" ? "Software" : category.name.split(' ')[0]}</span>
-                  </div>
-                </TabsTrigger>
-              ))}
-            </TabsList>
+            <div className="relative w-full overflow-x-auto pb-4" ref={tabsListRef}>
+              <TabsList className="bg-white/70 backdrop-blur-sm border border-border/30 shadow-sm p-1.5 rounded-full min-w-max mx-auto flex">
+                {skillCategories.map(category => (
+                  <TabsTrigger 
+                    key={category.id}
+                    value={category.id}
+                    className={cn(
+                      "rounded-full transition-all py-2 px-4",
+                      activeCategory === category.id 
+                        ? "bg-gradient-to-r from-tech to-psych text-white shadow-md" 
+                        : "hover:bg-white/80"
+                    )}
+                    onClick={(e) => {
+                      // Prevent default behavior to avoid browser focus scrolling
+                      e.preventDefault();
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      {category.icon}
+                      <span className="hidden sm:inline">{category.name}</span>
+                      <span className="sm:hidden">{category.id === "software-dev" ? "Software" : category.name.split(' ')[0]}</span>
+                    </div>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <div className="absolute bottom-0 left-0 w-full flex justify-center">
+                <div className="h-1 w-16 bg-gradient-to-r from-transparent via-tech/50 to-transparent rounded-full"></div>
+              </div>
+            </div>
           </div>
           
           {skillCategories.map(category => (
